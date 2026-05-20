@@ -1,15 +1,14 @@
-package org.empresaabc.salesmanagement.query.document;
+package org.empresaabc.salesmanagement.modules.ventas.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import org.empresaabc.salesmanagement.shared.enums.EstadoVenta;
 import org.empresaabc.salesmanagement.shared.enums.TipoDocumento;
 import org.empresaabc.salesmanagement.shared.enums.TipoEntrega;
 import org.empresaabc.salesmanagement.shared.enums.TipoFactura;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -19,17 +18,10 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "ventas_view")
-public class VentaDocument {
+public class VentaCreadaEvent {
 
+   //Datos relacionados con la venta
 
-    // ID MONGO
-
-    @Id
-    private String id;
-
-
-    // Datos relacionados con la venta
     private String codigoVenta;
     private LocalDateTime fechaVenta;
     private String vendedor;
@@ -38,7 +30,8 @@ public class VentaDocument {
     private TipoFactura tipoFactura;
     private BigDecimal totalVenta;
 
-    // Datos relacionados con el cliente
+    //Datos relacionados con el cliente
+
     private String primerNombre;
     private String segundoNombre;
     private String primerApellido;
@@ -52,6 +45,5 @@ public class VentaDocument {
 
     // Datos relacionados con la venta - DETALLE
 
-    private List<DetalleVentaDocument>
-            detalles;
+    private List<DetalleVentaEvent> detalles;
 }

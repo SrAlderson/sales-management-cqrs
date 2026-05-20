@@ -1,4 +1,4 @@
-package org.empresaabc.salesmanagement.command.entity;
+package org.empresaabc.salesmanagement.modules.ventas.command.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

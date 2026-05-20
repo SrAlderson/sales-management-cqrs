@@ -1,7 +1,7 @@
 package org.empresaabc.salesmanagement.broker.consumer;
 
 import lombok.extern.slf4j.Slf4j;
-import org.empresaabc.salesmanagement.broker.event.VentaCreadaEvent;
+import org.empresaabc.salesmanagement.modules.ventas.event.VentaCreadaEvent;
 import org.empresaabc.salesmanagement.config.RabbitConfig;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;

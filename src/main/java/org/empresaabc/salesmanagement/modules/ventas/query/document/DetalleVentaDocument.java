@@ -1,4 +1,4 @@
-package org.empresaabc.salesmanagement.query.document;
+package org.empresaabc.salesmanagement.modules.ventas.query.document;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

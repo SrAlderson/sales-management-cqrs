@@ -1,13 +1,13 @@
-package org.empresaabc.salesmanagement.command.service;
+package org.empresaabc.salesmanagement.modules.ventas.command.service;
 
-import org.empresaabc.salesmanagement.broker.event.DetalleVentaEvent;
-import org.empresaabc.salesmanagement.broker.event.VentaCreadaEvent;
-import org.empresaabc.salesmanagement.broker.producer.VentaProducer;
-import org.empresaabc.salesmanagement.command.dto.DetalleVentaRequestDTO;
-import org.empresaabc.salesmanagement.command.dto.VentaRequestDTO;
-import org.empresaabc.salesmanagement.command.entity.DetalleVenta;
-import org.empresaabc.salesmanagement.command.entity.Venta;
-import org.empresaabc.salesmanagement.command.repository.VentaRepository;
+import org.empresaabc.salesmanagement.modules.ventas.event.DetalleVentaEvent;
+import org.empresaabc.salesmanagement.modules.ventas.event.VentaCreadaEvent;
+import org.empresaabc.salesmanagement.modules.ventas.producer.VentaProducer;
+import org.empresaabc.salesmanagement.modules.ventas.command.dto.DetalleVentaRequestDTO;
+import org.empresaabc.salesmanagement.modules.ventas.command.dto.VentaRequestDTO;
+import org.empresaabc.salesmanagement.modules.ventas.command.entity.DetalleVenta;
+import org.empresaabc.salesmanagement.modules.ventas.command.entity.Venta;
+import org.empresaabc.salesmanagement.modules.ventas.command.repository.VentaRepository;
 import org.empresaabc.salesmanagement.shared.enums.EstadoVenta;
 import org.springframework.stereotype.Service;
 

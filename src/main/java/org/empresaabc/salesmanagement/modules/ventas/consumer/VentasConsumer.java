@@ -1,13 +1,13 @@
-package org.empresaabc.salesmanagement.broker.consumer;
+package org.empresaabc.salesmanagement.modules.ventas.consumer;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.empresaabc.salesmanagement.broker.event.DetalleVentaEvent;
-import org.empresaabc.salesmanagement.broker.event.VentaCreadaEvent;
+import org.empresaabc.salesmanagement.modules.ventas.event.DetalleVentaEvent;
+import org.empresaabc.salesmanagement.modules.ventas.event.VentaCreadaEvent;
 import org.empresaabc.salesmanagement.config.RabbitConfig;
-import org.empresaabc.salesmanagement.query.document.DetalleVentaDocument;
-import org.empresaabc.salesmanagement.query.document.VentaDocument;
-import org.empresaabc.salesmanagement.query.repository.VentaQueryRepository;
+import org.empresaabc.salesmanagement.modules.ventas.query.document.DetalleVentaDocument;
+import org.empresaabc.salesmanagement.modules.ventas.query.document.VentaDocument;
+import org.empresaabc.salesmanagement.modules.ventas.query.repository.VentaQueryRepository;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
-package org.empresaabc.salesmanagement.command.repository;
+package org.empresaabc.salesmanagement.modules.ventas.command.repository;
 
-import org.empresaabc.salesmanagement.command.entity.Venta;
+import org.empresaabc.salesmanagement.modules.ventas.command.entity.Venta;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

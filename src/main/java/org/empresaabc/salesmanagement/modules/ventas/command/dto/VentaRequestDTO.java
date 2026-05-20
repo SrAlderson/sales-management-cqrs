@@ -1,4 +1,4 @@
-package org.empresaabc.salesmanagement.command.dto;
+package org.empresaabc.salesmanagement.modules.ventas.command.dto;
 
 import org.empresaabc.salesmanagement.shared.enums.TipoDocumento;
 import org.empresaabc.salesmanagement.shared.enums.TipoEntrega;

@@ -1,10 +1,10 @@
-package org.empresaabc.salesmanagement.command.controller;
+package org.empresaabc.salesmanagement.modules.ventas.command.controller;
 
-import org.empresaabc.salesmanagement.command.dto.VentaRequestDTO;
+import org.empresaabc.salesmanagement.modules.ventas.command.dto.VentaRequestDTO;
 
-import org.empresaabc.salesmanagement.command.entity.Venta;
+import org.empresaabc.salesmanagement.modules.ventas.command.entity.Venta;
 
-import org.empresaabc.salesmanagement.command.service.VentaCommandService;
+import org.empresaabc.salesmanagement.modules.ventas.command.service.VentaCommandService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

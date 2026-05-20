@@ -1,6 +1,6 @@
-package org.empresaabc.salesmanagement.query.repository;
+package org.empresaabc.salesmanagement.modules.ventas.query.repository;
 
-import org.empresaabc.salesmanagement.query.document.VentaDocument;
+import org.empresaabc.salesmanagement.modules.ventas.query.document.VentaDocument;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

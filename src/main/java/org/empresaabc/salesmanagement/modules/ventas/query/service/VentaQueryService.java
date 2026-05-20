@@ -1,8 +1,8 @@
-package org.empresaabc.salesmanagement.query.service;
+package org.empresaabc.salesmanagement.modules.ventas.query.service;
 
 import lombok.RequiredArgsConstructor;
-import org.empresaabc.salesmanagement.query.document.VentaDocument;
-import org.empresaabc.salesmanagement.query.repository.VentaQueryRepository;
+import org.empresaabc.salesmanagement.modules.ventas.query.document.VentaDocument;
+import org.empresaabc.salesmanagement.modules.ventas.query.repository.VentaQueryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

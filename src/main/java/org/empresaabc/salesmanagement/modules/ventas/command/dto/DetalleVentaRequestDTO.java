@@ -1,4 +1,4 @@
-package org.empresaabc.salesmanagement.command.dto;
+package org.empresaabc.salesmanagement.modules.ventas.command.dto;
 
 import lombok.Getter;
 import lombok.Setter;

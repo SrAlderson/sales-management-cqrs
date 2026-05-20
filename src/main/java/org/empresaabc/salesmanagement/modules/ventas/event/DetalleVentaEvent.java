@@ -1,4 +1,4 @@
-package org.empresaabc.salesmanagement.broker.event;
+package org.empresaabc.salesmanagement.modules.ventas.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
