@@ -32,9 +32,12 @@ spring:
     port: ${RABBIT_PORT}
     username: ${RABBIT_USER}
     password: ${RABBIT_PASSWORD}
+    virtual-host: ${RABBIT_VHOST}
+    dynamic: true
+
 
 logging:
   level:
-    org:
-      springframework:
-        amqp: DEBUG
+    org.springframework.amqp: TRACE
+    org.springframework.amqp.rabbit: TRACE
+    org.springframework.boot.autoconfigure.amqp: TRACE
