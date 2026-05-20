@@ -10,6 +10,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -83,6 +85,7 @@ public class Venta {
     // Datos referentes a la compra - DETALLE
 
     //Se va a llamar a la clase DETALLE VENTA
+    @JsonManagedReference
     @OneToMany(
             mappedBy = "venta",
             cascade = CascadeType.ALL,
