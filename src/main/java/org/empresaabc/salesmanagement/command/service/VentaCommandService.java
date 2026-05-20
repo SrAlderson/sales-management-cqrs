@@ -59,7 +59,7 @@ public class VentaCommandService {
         venta.setCiudad(request.getCiudad());
 
 
-        // Datos relacionados con la venta - DETALLe
+        // Datos relacionados con la venta - DETALLE
 
         //Inicializar el total de la venta en cero
         BigDecimal totalVenta = BigDecimal.ZERO;

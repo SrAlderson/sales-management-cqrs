@@ -1,0 +1,35 @@
+package org.empresaabc.salesmanagement.command.controller;
+
+import org.empresaabc.salesmanagement.command.dto.VentaRequestDTO;
+
+import org.empresaabc.salesmanagement.command.entity.Venta;
+
+import org.empresaabc.salesmanagement.command.service.VentaCommandService;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/ventas")
+public class VentaCommandController {
+
+    private final VentaCommandService ventaCommandService;
+
+    public VentaCommandController(
+            VentaCommandService ventaCommandService
+    ) {
+        this.ventaCommandService =
+                ventaCommandService;
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Venta registrarVenta(
+            @RequestBody
+            VentaRequestDTO request
+    ) {
+
+        return ventaCommandService
+                .registrarVenta(request);
+    }
+}
