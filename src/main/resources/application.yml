@@ -1,0 +1,40 @@
+#Puerto de la aplicación
+server:
+  port: 9090
+
+spring:
+  application:
+    name: sales-management
+
+  #Configuracion de la conexión hacia la base de datos de postgress - RENDER
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  #Manejo de la BD
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  data:
+    mongodb:
+      uri: ${MONGO_URI}
+
+  #Conexion del broker - RABBIT Local
+  rabbitmq:
+    host: ${RABBIT_HOST}
+    port: ${RABBIT_PORT}
+    username: ${RABBIT_USER}
+    password: ${RABBIT_PASSWORD}
+
+logging:
+  level:
+    org:
+      springframework:
+        amqp: DEBUG
