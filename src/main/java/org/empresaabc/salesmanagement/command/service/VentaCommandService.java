@@ -1,39 +1,50 @@
 package org.empresaabc.salesmanagement.command.service;
 
+import org.empresaabc.salesmanagement.broker.event.DetalleVentaEvent;
+import org.empresaabc.salesmanagement.broker.event.VentaCreadaEvent;
+import org.empresaabc.salesmanagement.broker.producer.VentaProducer;
 import org.empresaabc.salesmanagement.command.dto.DetalleVentaRequestDTO;
 import org.empresaabc.salesmanagement.command.dto.VentaRequestDTO;
-
 import org.empresaabc.salesmanagement.command.entity.DetalleVenta;
 import org.empresaabc.salesmanagement.command.entity.Venta;
-
 import org.empresaabc.salesmanagement.command.repository.VentaRepository;
-
 import org.empresaabc.salesmanagement.shared.enums.EstadoVenta;
-
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
 public class VentaCommandService {
 
-    //Dependencia para guardar la informacion en la base de datos
+    //Dependencias
     private final VentaRepository ventaRepository;
+    private final VentaProducer ventaProducer;
 
+    //Constructor
     public VentaCommandService(
-            VentaRepository ventaRepository
+            VentaRepository ventaRepository,
+            VentaProducer ventaProducer
     ) {
-        this.ventaRepository = ventaRepository;
+
+        this.ventaRepository =
+                ventaRepository;
+
+        this.ventaProducer =
+                ventaProducer;
     }
 
+
+    //Registrar venta
     public Venta registrarVenta(
             VentaRequestDTO request
     ) {
 
-        //Creacion de la entidad para guardar los datos
+        // Creación entidad venta
         Venta venta = new Venta();
+
 
         //Datos relacionados con la venta
 
@@ -45,7 +56,7 @@ public class VentaCommandService {
         venta.setTipoFactura(request.getTipoFactura());
 
 
-        // Datos relacionados con el cliente
+        //Datos relacionados con el cliente
 
         venta.setPrimerNombre(request.getPrimerNombre());
         venta.setSegundoNombre(request.getSegundoNombre());
@@ -59,23 +70,24 @@ public class VentaCommandService {
         venta.setCiudad(request.getCiudad());
 
 
-        // Datos relacionados con la venta - DETALLE
+        //Datos relacionados con la venta - DETALLE
 
-        //Inicializar el total de la venta en cero
+        //Dejar total venta en cero
         BigDecimal totalVenta = BigDecimal.ZERO;
 
-        //Recorrido por cada articulo enviado
-        for (DetalleVentaRequestDTO detalleDTO
-                : request.getDetalles()) {
+        //Recorrer cada articulo
+        for (
+                DetalleVentaRequestDTO detalleDTO
+                : request.getDetalles()
+        ) {
 
-            //Creacion del objeto detalle
             DetalleVenta detalle = new DetalleVenta();
 
             detalle.setNombreArticulo(detalleDTO.getNombreArticulo());
             detalle.setCantidad(detalleDTO.getCantidad());
             detalle.setPrecioUnitario(detalleDTO.getPrecioUnitario());
 
-            //Calcular subtotal de acuerdo con la informacion enviada
+            //Calcular el subtotal de articulos
             BigDecimal subtotal =
                     detalleDTO
                             .getPrecioUnitario()
@@ -86,27 +98,142 @@ public class VentaCommandService {
                                     )
                             );
 
-            //Guardar subtotal calculado
+            //Asignar valor subtotal
             detalle.setSubtotal(subtotal);
 
-            //Relacion bidireccional entre la tabla ventas y tabla detalle venta
+            //Valor relacionado con la venta
             detalle.setVenta(venta);
 
-            //Agrega el detalle a la venta
             venta.getDetalles().add(detalle);
 
-            //Suma todos lo subtotales
             totalVenta = totalVenta.add(subtotal);
         }
 
-        //Asigna valor a total final
+
+
+        // TOTAL VENTA
+
         venta.setTotalVenta(totalVenta);
 
-        //Guarda en la base de datos
-        return ventaRepository.save(venta);
+
+        //Guardar en base de datos
+
+        Venta ventaGuardada =
+                ventaRepository.save(
+                        venta
+                );
+
+
+        //Crear el evento
+
+        VentaCreadaEvent event =
+                mapToEvent(
+                        ventaGuardada
+                );
+
+
+        //Envio de evento a Rabbit
+        ventaProducer.enviarVentaCreada(event);
+        return ventaGuardada;
     }
 
-    //Metodo para generar el codigo de venta
+
+    // ==========================================
+    // MAP ENTITY → EVENT
+    // ==========================================
+
+    private VentaCreadaEvent mapToEvent(
+            Venta venta
+    ) {
+
+        List<DetalleVentaEvent>
+                detallesEvent =
+
+                venta.getDetalles()
+                        .stream()
+                        .map(
+                                detalle ->
+                                        DetalleVentaEvent
+                                                .builder()
+                                                .nombreArticulo(
+                                                        detalle.getNombreArticulo()
+                                                )
+                                                .cantidad(
+                                                        detalle.getCantidad()
+                                                )
+                                                .precioUnitario(
+                                                        detalle.getPrecioUnitario()
+                                                )
+                                                .subtotal(
+                                                        detalle.getSubtotal()
+                                                )
+                                                .build()
+                        )
+                        .toList();
+
+
+        return VentaCreadaEvent
+                .builder()
+                .codigoVenta(
+                        venta.getCodigoVenta()
+                )
+                .fechaVenta(
+                        venta.getFechaVenta()
+                )
+                .vendedor(
+                        venta.getVendedor()
+                )
+                .estadoVenta(
+                        venta.getEstadoVenta()
+                )
+                .tipoEntrega(
+                        venta.getTipoEntrega()
+                )
+                .tipoFactura(
+                        venta.getTipoFactura()
+                )
+                .totalVenta(
+                        venta.getTotalVenta()
+                )
+                .primerNombre(
+                        venta.getPrimerNombre()
+                )
+                .segundoNombre(
+                        venta.getSegundoNombre()
+                )
+                .primerApellido(
+                        venta.getPrimerApellido()
+                )
+                .segundoApellido(
+                        venta.getSegundoApellido()
+                )
+                .tipoDocumento(
+                        venta.getTipoDocumento()
+                )
+                .numeroDocumento(
+                        venta.getNumeroDocumento()
+                )
+                .correoCliente(
+                        venta.getCorreoCliente()
+                )
+                .telefonoCliente(
+                        venta.getTelefonoCliente()
+                )
+                .direccionEntrega(
+                        venta.getDireccionEntrega()
+                )
+                .ciudad(
+                        venta.getCiudad()
+                )
+                .detalles(
+                        detallesEvent
+                )
+                .build();
+    }
+
+
+
+    // GENERAR CODIGO VENTA
     private String generarCodigoVenta() {
 
         return "VTA-"

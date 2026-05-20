@@ -4,6 +4,9 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,25 +14,25 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitConfig {
 
-    // ==========================================
+    // ==================================================
     // EXCHANGE
-    // ==========================================
+    // ==================================================
 
     public static final String SALES_EXCHANGE =
             "sales.exchange";
 
 
-    // ==========================================
+    // ==================================================
     // ROUTING KEY
-    // ==========================================
+    // ==================================================
 
     public static final String SALES_ROUTING_KEY =
             "sales.created";
 
 
-    // ==========================================
+    // ==================================================
     // QUEUES
-    // ==========================================
+    // ==================================================
 
     public static final String VENTAS_QUEUE =
             "ventas.queue";
@@ -44,9 +47,9 @@ public class RabbitConfig {
             "facturacion.queue";
 
 
-    // ==========================================
-    // VALIDACION
-    // ==========================================
+    // ==================================================
+    // VALIDACION STARTUP
+    // ==================================================
 
     @PostConstruct
     public void init() {
@@ -57,9 +60,9 @@ public class RabbitConfig {
     }
 
 
-    // ==========================================
+    // ==================================================
     // EXCHANGE
-    // ==========================================
+    // ==================================================
 
     @Bean
     public TopicExchange salesExchange() {
@@ -73,9 +76,9 @@ public class RabbitConfig {
     }
 
 
-    // ==========================================
+    // ==================================================
     // QUEUES
-    // ==========================================
+    // ==================================================
 
     @Bean
     public Queue ventasQueue() {
@@ -118,50 +121,74 @@ public class RabbitConfig {
     }
 
 
-    // ==========================================
+    // ==================================================
     // BINDINGS
-    // ==========================================
+    // ==================================================
 
     @Bean
     public Binding ventasBinding() {
 
         return BindingBuilder
-                .bind(ventasQueue())
-                .to(salesExchange())
-                .with(SALES_ROUTING_KEY);
+                .bind(
+                        ventasQueue()
+                )
+                .to(
+                        salesExchange()
+                )
+                .with(
+                        SALES_ROUTING_KEY
+                );
     }
 
     @Bean
     public Binding contabilidadBinding() {
 
         return BindingBuilder
-                .bind(contabilidadQueue())
-                .to(salesExchange())
-                .with(SALES_ROUTING_KEY);
+                .bind(
+                        contabilidadQueue()
+                )
+                .to(
+                        salesExchange()
+                )
+                .with(
+                        SALES_ROUTING_KEY
+                );
     }
 
     @Bean
     public Binding distribucionBinding() {
 
         return BindingBuilder
-                .bind(distribucionQueue())
-                .to(salesExchange())
-                .with(SALES_ROUTING_KEY);
+                .bind(
+                        distribucionQueue()
+                )
+                .to(
+                        salesExchange()
+                )
+                .with(
+                        SALES_ROUTING_KEY
+                );
     }
 
     @Bean
     public Binding facturacionBinding() {
 
         return BindingBuilder
-                .bind(facturacionQueue())
-                .to(salesExchange())
-                .with(SALES_ROUTING_KEY);
+                .bind(
+                        facturacionQueue()
+                )
+                .to(
+                        salesExchange()
+                )
+                .with(
+                        SALES_ROUTING_KEY
+                );
     }
 
 
-    // ==========================================
-    // ADMIN
-    // ==========================================
+    // ==================================================
+    // RABBIT ADMIN
+    // ==================================================
 
     @Bean
     public RabbitAdmin rabbitAdmin(
@@ -174,9 +201,42 @@ public class RabbitConfig {
     }
 
 
-    // ==========================================
-    // CREACION MANUAL
-    // ==========================================
+    // ==================================================
+    // JSON CONVERTER
+    // ==================================================
+
+    @Bean
+    public MessageConverter jsonMessageConverter() {
+
+        return new Jackson2JsonMessageConverter();
+    }
+
+
+    // ==================================================
+    // RABBIT TEMPLATE
+    // ==================================================
+
+    @Bean
+    public RabbitTemplate rabbitTemplate(
+            ConnectionFactory connectionFactory
+    ) {
+
+        RabbitTemplate rabbitTemplate =
+                new RabbitTemplate(
+                        connectionFactory
+                );
+
+        rabbitTemplate.setMessageConverter(
+                jsonMessageConverter()
+        );
+
+        return rabbitTemplate;
+    }
+
+
+    // ==================================================
+    // CREACION MANUAL DE TOPOLOGY
+    // ==================================================
 
     @Bean
     public CommandLineRunner rabbitInitializer(
@@ -185,10 +245,12 @@ public class RabbitConfig {
 
         return args -> {
 
+            // Exchange
             rabbitAdmin.declareExchange(
                     salesExchange()
             );
 
+            // Queues
             rabbitAdmin.declareQueue(
                     ventasQueue()
             );
@@ -205,6 +267,7 @@ public class RabbitConfig {
                     facturacionQueue()
             );
 
+            // Bindings
             rabbitAdmin.declareBinding(
                     ventasBinding()
             );
@@ -222,7 +285,7 @@ public class RabbitConfig {
             );
 
             System.out.println(
-                    "RabbitMQ queues creadas"
+                    "RabbitMQ queues creadas correctamente"
             );
         };
     }
