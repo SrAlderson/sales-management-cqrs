@@ -1,0 +1,531 @@
+.fact-layout {
+
+  min-height:
+    100vh;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  background:
+    #fffbeb;
+
+}
+
+/* HEADER */
+
+.fact-header {
+
+  background:
+    white;
+
+  border-bottom:
+    4px solid #b45309;
+
+  padding:
+    20px 40px;
+
+  box-shadow:
+    0 2px 12px rgba(
+      0,
+      0,
+      0,
+      0.05
+    );
+
+}
+
+.fact-logo {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    20px;
+
+}
+
+.fact-logo-circle {
+
+  width:
+    70px;
+
+  height:
+    70px;
+
+  border-radius:
+    50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #b45309,
+      #f59e0b
+    );
+
+  color:
+    white;
+
+  display:
+    flex;
+
+  justify-content:
+    center;
+
+  align-items:
+    center;
+
+  font-size:
+    22px;
+
+  font-weight:
+    700;
+
+}
+
+.fact-logo-text h1 {
+
+  margin:
+    0;
+
+  color:
+    #b45309;
+
+}
+
+.fact-logo-text p {
+
+  margin:
+    5px 0 0;
+
+  color:
+    #64748b;
+
+}
+
+/* MAIN */
+
+.fact-main {
+
+  flex:
+    1;
+
+  padding:
+    40px;
+
+}
+
+.fact-card {
+
+  background:
+    white;
+
+  padding:
+    35px;
+
+  border-radius:
+    24px;
+
+  box-shadow:
+    0 8px 24px rgba(
+      15,
+      23,
+      42,
+      0.05
+    );
+
+  border-left:
+    6px solid #b45309;
+
+}
+
+/* FOOTER */
+
+.fact-footer {
+
+  background:
+    linear-gradient(
+      135deg,
+      #b45309,
+      #f59e0b
+    );
+
+  color:
+    white;
+
+  text-align:
+    center;
+
+  padding:
+    20px;
+
+}
+
+.tabla-fact {
+
+  width:
+    100%;
+
+  border-collapse:
+    collapse;
+
+}
+
+.tabla-fact th {
+
+  background:
+    linear-gradient(
+      135deg,
+      #b45309,
+      #f59e0b
+    );
+
+  color:
+    white;
+
+  padding:
+    16px;
+
+  text-align:
+    left;
+
+}
+
+.tabla-fact td {
+
+  padding:
+    16px;
+
+  border-bottom:
+    1px solid #e5e7eb;
+
+}
+
+.tabla-fact tr:hover {
+
+  background:
+    #fff7ed;
+
+}
+
+/* TIPO FACTURA */
+
+.tipo-factura {
+
+  padding:
+    8px 16px;
+
+  border-radius:
+    999px;
+
+  font-weight:
+    700;
+
+}
+
+.tipo-factura.general {
+
+  background:
+    #e5e7eb;
+
+  color:
+    #374151;
+
+}
+
+.tipo-factura.electronica {
+
+  background:
+    #fef3c7;
+
+  color:
+    #92400e;
+
+}
+
+/* ESTADOS */
+
+.estado-fact {
+
+  padding:
+    8px 16px;
+
+  border-radius:
+    999px;
+
+  font-weight:
+    700;
+
+}
+
+.estado-fact.pendiente_impresion {
+
+  background:
+    #fef3c7;
+
+  color:
+    #92400e;
+
+}
+
+.estado-fact.generada {
+
+  background:
+    #dbeafe;
+
+  color:
+    #1e40af;
+
+}
+
+.estado-fact.enviada {
+
+  background:
+    #dcfce7;
+
+  color:
+    #166534;
+
+}
+
+.estado-fact.error_envio {
+
+  background:
+    #fee2e2;
+
+  color:
+    #b91c1c;
+
+}
+
+.estado-fact.anulada {
+
+  background:
+    #e5e7eb;
+
+  color:
+    #374151;
+
+}
+
+/* ======================
+   KPIS FACTURACIÓN
+====================== */
+
+.fact-kpis-grid {
+
+  display:
+    grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap:
+    20px;
+
+  margin-bottom:
+    30px;
+
+}
+
+.fact-kpi-card {
+
+  background:
+    white;
+
+  border-radius:
+    22px;
+
+  padding:
+    28px;
+
+  border-left:
+    6px solid #b45309;
+
+  box-shadow:
+    0 8px 24px rgba(
+      15,
+      23,
+      42,
+      0.05
+    );
+
+}
+
+.fact-kpi-card span {
+
+  color:
+    #64748b;
+
+  font-size:
+    14px;
+
+}
+
+.fact-kpi-card h2 {
+
+  margin-top:
+    12px;
+
+  color:
+    #b45309;
+
+  font-size:
+    30px;
+
+}
+
+/* ======================
+   TOOLBAR
+====================== */
+
+.fact-toolbar {
+
+  display:
+    flex;
+
+  justify-content:
+    space-between;
+
+  align-items:
+    flex-start;
+
+  margin-bottom:
+    25px;
+
+}
+
+.fact-search {
+
+  display:
+    flex;
+
+  gap:
+    12px;
+
+  align-items:
+    center;
+
+}
+
+.fact-search select,
+.fact-search input {
+
+  padding:
+    12px 16px;
+
+  border:
+    1px solid #d1d5db;
+
+  border-radius:
+    12px;
+
+  outline:
+    none;
+
+}
+
+.fact-btn-search {
+
+  background:
+    #b45309;
+
+  color:
+    white;
+
+  border:
+    none;
+
+  padding:
+    12px 18px;
+
+  border-radius:
+    12px;
+
+  cursor:
+    pointer;
+
+}
+
+.fact-btn-clear {
+
+  width:
+    46px;
+
+  height:
+    46px;
+
+  border:
+    none;
+
+  border-radius:
+    12px;
+
+  background:
+    #64748b;
+
+  color:
+    white;
+
+  font-size:
+    18px;
+
+  cursor:
+    pointer;
+
+}
+
+/* ======================
+   STATUS
+====================== */
+
+.fact-status {
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    10px;
+
+  margin-top:
+    10px;
+
+  color:
+    #64748b;
+
+  font-size:
+    14px;
+
+}
+
+.fact-online-dot {
+
+  width:
+    10px;
+
+  height:
+    10px;
+
+  border-radius:
+    50%;
+
+  background:
+    #f59e0b;
+
+  box-shadow:
+    0 0 10px rgba(
+      245,
+      158,
+      11,
+      0.7
+    );
+
+}
